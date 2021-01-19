@@ -1,10 +1,5 @@
-// React Native Custom Star Rating Bar
-// https://aboutreact.com/react-native-custom-star-rating-bar/
-
-// import React in our code
 import React, { useState } from "react";
 
-// import all the components we are going to use
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,7 +10,6 @@ import {
 } from "react-native";
 
 const App = () => {
-  // To set the default Star Selected
   const [defaultRating, setDefaultRating] = useState(2);
   // To set the max number of Stars
   const [maxRating, setMaxRating] = useState([1, 2, 3, 4, 5]);

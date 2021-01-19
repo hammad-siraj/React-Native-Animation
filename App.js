@@ -1,207 +1,4 @@
-// import React, { useRef, useState } from "react";
-
-// import {
-//   StyleSheet,
-//   View,
-//   FlatList,
-//   Animated,
-//   Text,
-//   Pressable,
-//   Dimensions,
-//   Modal,
-//   SafeAreaView,
-// } from "react-native";
-// import { data, wholeData } from "./DATA.js";
-// import Card from "./components/card";
-
-// const { height, width } = Dimensions.get("window");
-// export default function App() {
-//   const DATA = [
-//     { key: "Best in Thali" },
-//     { key: "Recommended" },
-//     { key: "Match Day Combos" },
-//     { key: "Thali" },
-//     { key: "Main Course" },
-//     { key: "Breads" },
-//     { key: "Rice and Biryani" },
-//     { key: "Starters" },
-//   ];
-//   const toHeight = 320;
-//   const toWidth = 200;
-//   const height = useRef(new Animated.Value(0)).current;
-//   const width = useRef(new Animated.Value(0)).current;
-//   const opacity = useRef(new Animated.Value(0)).current;
-//   const borderTopLeftRadius = useRef(new Animated.Value(toHeight)).current;
-//   const [toggle, setToggle] = useState(false);
-//   const genTime = 500;
-//   const animate = () => {
-//     if (!toggle) {
-//       setToggle(true);
-//       Animated.parallel([
-//         Animated.timing(height, {
-//           toValue: toHeight,
-//           duration: genTime,
-//           useNativeDriver: false,
-//         }),
-//         Animated.timing(width, {
-//           toValue: toWidth,
-//           duration: genTime,
-//           useNativeDriver: false,
-//         }),
-//         Animated.timing(borderTopLeftRadius, {
-//           toValue: 15,
-//           duration: genTime,
-//           useNativeDriver: false,
-//         }),
-//         Animated.timing(opacity, {
-//           toValue: 1,
-//           duration: 1000,
-//           useNativeDriver: true,
-//         }),
-//       ]).start();
-//     } else {
-//       Animated.parallel([
-//         Animated.timing(opacity, {
-//           toValue: 0,
-//           duration: genTime,
-//           useNativeDriver: true,
-//         }),
-//         Animated.timing(height, {
-//           toValue: 0,
-//           duration: genTime,
-//           useNativeDriver: false,
-//         }),
-//         Animated.timing(width, {
-//           toValue: 0,
-//           duration: genTime,
-//           useNativeDriver: false,
-//         }),
-//         Animated.timing(borderTopLeftRadius, {
-//           toValue: toHeight,
-//           duration: genTime,
-//           useNativeDriver: false,
-//         }),
-//       ]).start(() => {
-//         setToggle(false);
-//       });
-//     }
-//   };
-//   return (
-//     <SafeAreaView style={styles.container}>
-//       <FlatList
-//         data={wholeData}
-//         keyExtractor={(item) => item.key}
-//         showsVerticalScrollIndicator={false}
-//         contentContainerStyle={{
-//           alignItems: "center",
-//         }}
-//         renderItem={(dt) => {
-//           return (
-//             <View>
-//               <Text>{dt.item.name}</Text>
-//               <FlatList
-//                 data={data}
-//                 contentContainerStyle={{
-//                   alignItems: "center",
-//                 }}
-//                 keyExtractor={(item) => item.key}
-//                 showsVerticalScrollIndicator={false}
-//                 renderItem={({ item, index }) => {
-//                   return (
-//                     // <View style={{ backgroundColor: "red" }}>
-//                     <Card
-//                       image={item.image}
-//                       title={item.title}
-//                       description={item.description}
-//                     ></Card>
-//                     // </View>
-//                   );
-//                 }}
-//               />
-//             </View>
-//           );
-//         }}
-//       />
-
-//       {toggle && <Pressable style={styles.bgDrop(toggle)} onPress={animate} />}
-//       <Pressable style={styles.bottomButton} onPress={animate}>
-//         <Text style={styles.text}>{toggle ? "Close" : "Menu"}</Text>
-//       </Pressable>
-//       <Animated.View
-//         style={styles.bottomFlip(height, width, borderTopLeftRadius)}
-//       >
-//         {DATA.map((item, index) => {
-//           return (
-//             <Animated.Text style={styles.menuText(opacity)} key={index}>
-//               {item.key}
-//             </Animated.Text>
-//           );
-//         })}
-//       </Animated.View>
-//     </SafeAreaView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: (toggle) => ({
-//     flex: 1,
-//     backgroundColor: toggle ? "rgba(0, 0, 0, 0.6)" : "white",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   }),
-//   bgDrop: (toggle) => ({
-//     height: height,
-//     width: width,
-//     backgroundColor: toggle ? "rgba(0, 0, 0, 0.6)" : "white",
-//     position: "absolute",
-//     bottom: 0,
-//     right: 0,
-//     top: 0,
-//     opacity: toggle ? 1 : 0,
-//     alignItems: "center",
-//     justifyContent: "center",
-//   }),
-//   bottomButton: {
-//     position: "absolute",
-//     bottom: 20,
-//     right: 20,
-//     paddingHorizontal: 20,
-//     paddingVertical: 10,
-//     borderRadius: 15,
-//     justifyContent: "center",
-//     alignItems: "center",
-//     backgroundColor: "black",
-//   },
-//   text: {
-//     color: "white",
-//     fontSize: 24,
-//   },
-//   menuText: (opacity) => ({
-//     color: "black",
-//     fontSize: 24,
-//     letterSpacing: 1,
-//     marginHorizontal: 10,
-//     opacity: opacity,
-//   }),
-//   bottomFlip: (height, width, borderTopLeftRadius) => ({
-//     position: "absolute",
-//     bottom: 80,
-//     right: 20,
-//     borderTopLeftRadius: borderTopLeftRadius,
-//     height: height,
-//     width: width,
-//     borderRadius: 10,
-//     alignItems: "flex-start",
-//     backgroundColor: "white",
-//     overflow: "hidden",
-//   }),
-// });
-// Example of Expandable ListView in React Native
-// https://aboutreact.com/expandable-list-view/
-
-// Import React
 import React, { useEffect, useState, Component } from "react";
-// Import required components
 import {
   SafeAreaView,
   LayoutAnimation,
@@ -216,16 +13,20 @@ import {
   Animated,
   StatusBar,
   RefreshControl,
+  LogBox,
+  Modal,
+  TouchableHighlight,
+  Button,
 } from "react-native";
 import { images } from "./DATA";
 import Card from "./components/card";
-import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Feather, Ionicons, Entypo } from "@expo/vector-icons";
 import { RFValue } from "react-native-responsive-fontsize";
-import { Rating, AirbnbRating } from "react-native-ratings";
 import CustomRating from "./components/customStar";
-import BottomSheet from "reanimated-bottom-sheet";
+import Line from "./components/lineComponent";
+import RBSheet from "react-native-raw-bottom-sheet";
+LogBox.ignoreAllLogs();
 const ExpandableComponent = ({ item, onClickFunction }) => {
-  //Custom Component for the Expandable List
   const [layoutHeight, setLayoutHeight] = useState(0);
 
   useEffect(() => {
@@ -291,7 +92,6 @@ const ExpandableComponent = ({ item, onClickFunction }) => {
 
 const List = () => {
   const [listDataSource, setListDataSource] = useState(CONTENT);
-  const [multiSelect, setMultiSelect] = useState(false);
 
   if (Platform.OS === "android") {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -300,38 +100,20 @@ const List = () => {
   const updateLayout = (index) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     const array = [...listDataSource];
-    if (multiSelect) {
-      // If multiple select is enabled
-      array[index]["isExpanded"] = !array[index]["isExpanded"];
-    } else {
-      // If single select is enabled
-      array.map((value, placeindex) =>
-        placeindex === index
-          ? (array[placeindex]["isExpanded"] = !array[placeindex]["isExpanded"])
-          : (array[placeindex]["isExpanded"] = false)
-      );
-    }
+
+    array.map((value, placeindex) =>
+      placeindex === index
+        ? (array[placeindex]["isExpanded"] = !array[placeindex]["isExpanded"])
+        : (array[placeindex]["isExpanded"] = false)
+    );
+
     setListDataSource(array);
   };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <View style={{ flexDirection: "row", padding: 10 }}>
-          {/* <Text style={styles.titleText}>Expandable List View</Text> */}
-          {/* <TouchableOpacity onPress={() => setMultiSelect(!multiSelect)}>
-            <Text
-              style={{
-                textAlign: "center",
-                justifyContent: "center",
-              }}
-            >
-              {multiSelect
-                ? "Enable Single \n Expand"
-                : "Enalble Multiple \n Expand"}
-            </Text>
-          </TouchableOpacity> */}
-        </View>
+        <View style={{ flexDirection: "row", padding: 10 }}></View>
         <ScrollView>
           {listDataSource.map((item, key) => (
             <ExpandableComponent
@@ -348,47 +130,6 @@ const List = () => {
   );
 };
 
-// export default App;
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   titleText: {
-//     flex: 1,
-//     fontSize: 22,
-//     fontWeight: "bold",
-//   },
-//   header: {
-//     // backgroundColor: "#F5FCFF",
-//     padding: 20,
-//     flexDirection: "row",
-//     alignItems: "center",
-//   },
-//   headerText: {
-//     fontSize: 16,
-//     fontWeight: "500",
-//   },
-//   separator: {
-//     height: 0.5,
-//     backgroundColor: "#808080",
-//     width: "95%",
-//     marginLeft: 16,
-//     marginRight: 16,
-//   },
-//   text: {
-//     fontSize: 16,
-//     color: "#606070",
-//     padding: 10,
-//   },
-//   content: {
-//     paddingLeft: 10,
-//     paddingRight: 10,
-//     backgroundColor: "#fff",
-//   },
-// });
-
-//Dummy content to show
-//You can also use dynamic data by calling webservice
 const CONTENT = [
   {
     isExpanded: false,
@@ -479,20 +220,176 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.bottomSheet = React.createRef();
 
     this.state = {
+      openSnapArr: [350, 0],
+      closSnapArr: [0],
+      isBottomOpen: false,
       scrollY: new Animated.Value(
-        // iOS has negative initial scroll value because content inset...
         Platform.OS === "ios" ? -HEADER_MAX_HEIGHT : 0
       ),
       refreshing: false,
+      isOpenModal: false,
     };
   }
 
+  TimingModal(animation, answer) {
+    return (
+      <Modal
+        // animationType="slide"
+
+        transparent={true}
+        visible={true}
+        supportedOrientations={["portrait", "landscape"]}
+        onRequestClose={() => {
+          // Alert.alert('Modal has been closed.');
+        }}
+      >
+        <TouchableOpacity
+          onPress={() =>
+            this.setState({ isOpenModal: !this.state.isOpenModal })
+          }
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 1,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: "white",
+              width: "80%",
+              height: 80,
+              padding: RFValue(5),
+            }}
+          >
+            <Text style={{ fontSize: RFValue(15) }}>Opening Hours</Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: RFValue(10),
+              }}
+            >
+              <Text style={{ color: "blue" }}>Mon-Sun</Text>
+              <Text>11am - 3am</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    );
+  }
+
+  RenderContent() {
+    return (
+      <View
+        style={{
+          backgroundColor: "white",
+          // padding: 16,
+          // height: 450,
+          width: "100%",
+          height: "100%",
+          padding: 10,
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: RFValue(10),
+          }}
+        >
+          <Text style={{ fontSize: RFValue(20) }}>BFF Non Veg Sub Combo</Text>
+          <TouchableOpacity onPress={() => this.RBSheet.close()}>
+            <Entypo name="cross" size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={{ color: "gray", paddingBottom: 10 }}>
+            Buy any 2 non veg and get any 2 cookies free
+          </Text>
+          <View
+            style={{ borderColor: "gray", width: "100%", borderWidth: 0.6 }}
+          />
+        </View>
+
+        <View style={{ marginBottom: RFValue(10) }}>
+          <Text style={{ fontSize: 20, paddingBottom: RFValue(10) }}>
+            Choose your First Sub
+          </Text>
+          <Text style={{ color: "gray" }}>Please select any one option</Text>
+        </View>
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ fontSize: RFValue(12), color: "orange" }}>
+              Chicken Kofta Sub
+            </Text>
+            <View
+              style={{
+                width: RFValue(15),
+                height: RFValue(15),
+                borderRadius: RFValue(7),
+                borderColor: "orange",
+                borderWidth: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  width: RFValue(10),
+                  height: RFValue(10),
+                  backgroundColor: "orange",
+                  borderRadius: RFValue(5),
+                }}
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: RFValue(8),
+            }}
+          >
+            <Text style={{ fontSize: RFValue(12) }}>Chicken Sub</Text>
+            <View
+              style={{
+                width: RFValue(15),
+                height: RFValue(15),
+                borderRadius: RFValue(7),
+                borderColor: "orange",
+                borderWidth: 2,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {/* <View
+                style={{
+                  width: RFValue(10),
+                  height: RFValue(10),
+                  backgroundColor: "orange",
+                  borderRadius: RFValue(5),
+                }}
+              /> */}
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
   render() {
-    // Because of content inset the scroll value will be negative on iOS so bring
-    // it back to 0.
     const scrollY = Animated.add(
       this.state.scrollY,
       Platform.OS === "ios" ? HEADER_MAX_HEIGHT : 0
@@ -558,8 +455,33 @@ export default class App extends Component {
           }}
         >
           <View style={{ height: RFValue(150), padding: RFValue(10) }}>
-            <View style={{ flexDirection: "row" }}>
-              <CustomRating />
+            <View style={{ flexDirection: "row", paddingBottom: 10 }}>
+              <View>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <CustomRating />
+                  <Text style={{ padding: 5, fontWeight: "bold" }}>2.8</Text>
+                </View>
+                <Text style={{ fontWeight: "500", fontSize: 12 }}>
+                  206 DINNING{"   "}
+                  <Text style={{ fontWeight: "100", fontSize: 12 }}>
+                    REVIEWS
+                  </Text>
+                </Text>
+                <Line />
+              </View>
+              <View style={{ paddingLeft: "8%" }}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <CustomRating />
+                  <Text style={{ padding: 5, fontWeight: "bold" }}>4.3</Text>
+                </View>
+                <Text style={{ fontWeight: "500", fontSize: 12 }}>
+                  3,056 DELIVERY{" "}
+                  <Text style={{ fontWeight: "100", fontSize: 12 }}>
+                    REVIEWS
+                  </Text>
+                </Text>
+                <Line />
+              </View>
             </View>
             <Text style={{ fontSize: RFValue(25), marginBottom: RFValue(8) }}>
               Domino's Pizza
@@ -582,15 +504,22 @@ export default class App extends Component {
             >
               Kasmir Gate, New Delhi{" "}
             </Text>
-            <Text
-              style={{
-                fontSize: RFValue(12),
-                color: "orange",
-                margin: RFValue(4),
-              }}
-            >
-              Closed <Text style={{ color: "gray" }}>-opens at 11 am</Text>
-            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text
+                style={{
+                  fontSize: RFValue(12),
+                  color: "orange",
+                  margin: RFValue(4),
+                }}
+              >
+                Closed <Text style={{ color: "gray" }}>-opens at 11 am</Text>
+              </Text>
+              <TouchableOpacity
+                onPress={() => this.setState({ isOpenModal: true })}
+              >
+                <AntDesign name="caretdown" size={12} color="gray" />
+              </TouchableOpacity>
+            </View>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
@@ -608,8 +537,8 @@ export default class App extends Component {
           </View>
           {/* {this._renderScrollViewContent()} */}
           <List />
-          {/* <List />
-          <List /> */}
+          <List />
+          <List />
         </Animated.ScrollView>
         <Animated.View
           pointerEvents="none"
@@ -654,7 +583,7 @@ export default class App extends Component {
           }}
         >
           <TouchableOpacity
-            // onPress={() => this.bottomSheet.current.snapTo(0)}
+            onPress={() => this.RBSheet.open()}
             style={{
               backgroundColor: "orange",
               height: 50,
@@ -684,14 +613,23 @@ export default class App extends Component {
               <AntDesign name="caretright" size={15} color="white" />
             </View>
           </TouchableOpacity>
-          {/* <BottomSheet
-            ref={this.bottomSheet}
-            snapPoints={[450, 300, 0]}
-            borderRadius={10}
-            // renderContent={renderContent}
-            renderContent={() => <Text>test</Text>}
-          /> */}
         </View>
+        {this.state.isOpenModal && this.TimingModal()}
+        <RBSheet
+          ref={(ref) => {
+            this.RBSheet = ref;
+          }}
+          height={600}
+          openDuration={250}
+          customStyles={{
+            container: {
+              justifyContent: "center",
+              alignItems: "center",
+            },
+          }}
+        >
+          {this.RenderContent()}
+        </RBSheet>
       </View>
     );
   }
